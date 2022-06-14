@@ -306,10 +306,14 @@ function classify() {
 
     case COMPLETE_REVERSE_TRANSLATION_TYPE: {
       const { displayTokens } = challenge;
-      if (DEBUG) {console.log("COMPLETE_REVERSE_TRANLATION_TYPE", { displayTokens });}
-      const { text } = displayTokens.filter((token) => token.isBlank)[0];
-      let textInputElement = document.querySelectorAll(CHALLENGE_TEXT_INPUT)[0];
-      dynamicInput(textInputElement, text);
+      if (DEBUG) {terminal.log("COMPLETE_REVERSE_TRANSLATION_TYPE", { displayTokens });}
+      let tokens = document.querySelectorAll(CHALLENGE_TEXT_INPUT);
+      var i = 0;
+      displayTokens.forEach((token) => {
+        if(token.isBlank) {
+            dynamicInput(tokens[i], token.text);
+        }
+      });
       return { displayTokens };
     }
 
@@ -398,7 +402,6 @@ function main() {
       .textContent.toUpperCase();
     if (isPlayerNext.valueOf() !== "CONTINUE") {
       classify();
-      // breakWhenIncorrect();
       // pressEnter();
     }
     setTimeout(pressEnter, 150);
