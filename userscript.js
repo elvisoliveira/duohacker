@@ -45,6 +45,7 @@ const SELECT_TRANSCRIPTION_TYPE = "selectTranscription";
 const SPEAK_TYPE = "speak";
 const SELECT_PRONUNCIATION_TYPE = "selectPronunciation";
 const LISTEN_ISOLATION_TYPE = "listenIsolation";
+const TAP_COMPLETE_TABLE_TYPE = "tapCompleteTable";
 const TYPE_COMPLETE_TABLE_TYPE = "typeCompleteTable";
 const TYPE_CLOSE_TYPE = "typeCloze";
 const ASSIST_TYPE = "assist";
@@ -245,6 +246,15 @@ function classify() {
       return { choices, correctIndex };
     }
 
+    case TAP_COMPLETE_TABLE_TYPE: {
+      const { choices } = challenge;
+      const tokens = document.querySelectorAll(WORD_BANK.concat(' ', CHALLENGE_TAP_TOKEN));
+      if (DEBUG) { terminal.log("TAP_COMPLETE_TABLE_TYPE", { choices, tokens }); }
+      choices.forEach((word, i) => {
+        tokens[i].dispatchEvent(clickEvent);
+      });
+      return { choices };
+    }
 
     case TYPE_COMPLETE_TABLE_TYPE: {
       const { displayTokens } = challenge;
