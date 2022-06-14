@@ -48,6 +48,7 @@ const LISTEN_ISOLATION_TYPE = "listenIsolation";
 const TAP_COMPLETE_TABLE_TYPE = "tapCompleteTable";
 const TYPE_COMPLETE_TABLE_TYPE = "typeCompleteTable";
 const TYPE_CLOSE_TYPE = "typeCloze";
+const TAP_CLOSE_TYPE = "tapCloze";
 const ASSIST_TYPE = "assist";
 const LISTEN_MATCH_TYPE = "listenMatch";
 
@@ -284,6 +285,24 @@ function classify() {
         }
       });
       return { displayTokens };
+    }
+
+    case TAP_CLOSE_TYPE: {
+      const { choices, correctIndices } = challenge;
+      const tokens = document.querySelectorAll(CHALLENGE_TAP_TOKEN);
+      if (DEBUG) { terminal.log("TAP_CLOSE_TYPE", { choices, correctIndices, tokens }); }
+      for (let i = 0; i < correctIndices.length; i++) {
+        choices.forEach((value, j) => {
+          if(correctIndices[i] == j) {
+            for (let k = 0; k < tokens.length; k++) {
+              if(tokens[k].innerText == value) {
+                tokens[k].dispatchEvent(clickEvent);
+              }
+            }
+          }
+        });
+      };
+      return { choices, correctIndices };
     }
 
     case TAP_COMPLETE_TYPE: {
