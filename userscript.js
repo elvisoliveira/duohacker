@@ -46,6 +46,7 @@ const SPEAK_TYPE = "speak";
 const SELECT_PRONUNCIATION_TYPE = "selectPronunciation";
 const LISTEN_ISOLATION_TYPE = "listenIsolation";
 const TYPE_COMPLETE_TABLE_TYPE = "typeCompleteTable";
+const LISTEN_MATCH_TYPE = "listenMatch";
 
 // W.I.P
 const ASSIST_TYPE = "assist";
@@ -134,6 +135,18 @@ function getChallenge() {
   }
 }
 
+// https://stackoverflow.com/a/39165137
+// https://github.com/Venryx/mobx-devtools-advanced/blob/master/Docs/TreeTraversal.md
+function getReactFiber(dom) {
+  const key = Object.keys(dom).find((key) => {
+    return (
+      key.startsWith("__reactFiber$") || // react 17+
+      key.startsWith("__reactInternalInstance$") // react <17
+    );
+  });
+  return dom[key];
+}
+
 // pressEnter() function
 function pressEnter() {
   const clickEvent = new MouseEvent("click", {
@@ -179,6 +192,25 @@ function classify() {
   if (!challenge) return;
   if (DEBUG) terminal.log(`${challenge.type}`, challenge);
   switch (challenge.type) {
+    case LISTEN_MATCH_TYPE: {
+      const { pairs } = challenge;
+      if (DEBUG) {
+        terminal.log("LISTEN_MATCH_TYPE", { pairs });
+      }
+      const tokens = document.querySelectorAll(CHALLENGE_TAP_TOKEN);
+      for (let i = 0; i <= 3; i++) {
+        f = getReactFiber(tokens[i]);
+        text = f.return.return.memoizedProps.text;
+        tokens[i].dispatchEvent(clickEvent);
+        for (let j = 4; j <= 7; j++) {
+          if(tokens[j].querySelector(CHALLENGE_TAP_TOKEN_TEXT).innerText == text) {
+            tokens[j].dispatchEvent(clickEvent);
+          }
+        }
+      }
+      return { pairs }
+    }
+
     case GAP_FILL_TYPE:
     case SELECT_TYPE:
     case SELECT_PRONUNCIATION_TYPE:
