@@ -45,6 +45,7 @@ const SELECT_TRANSCRIPTION_TYPE = "selectTranscription";
 const SPEAK_TYPE = "speak";
 const SELECT_PRONUNCIATION_TYPE = "selectPronunciation";
 const LISTEN_ISOLATION_TYPE = "listenIsolation";
+const TYPE_COMPLETE_TABLE_TYPE = "typeCompleteTable";
 
 // W.I.P
 const ASSIST_TYPE = "assist";
@@ -71,6 +72,7 @@ const AUDIO_BUTTON = '[data-test="audio-button"]';
 const WORD_BANK = '[data-test="word-bank"]';
 const BLAME_INCORRECT = '[data-test="blame blame-incorrect"]';
 const CHARACTER_MATCH = '[data-test="challenge challenge-characterMatch"]';
+const TYPE_COMPLETE_TABLE = '[data-test="challenge challenge-typeCompleteTable"]';
 const STORIES_PLAYER_NEXT = '[data-test="stories-player-continue"]';
 const STORIES_CHOICE = '[data-test="stories-choice"]';
 const STORIES_ELEMENT = '[data-test="stories-element"]';
@@ -196,6 +198,22 @@ function classify() {
       return { choices, correctIndex };
     }
 
+
+    case TYPE_COMPLETE_TABLE_TYPE: {
+      const { displayTokens } = challenge;
+      const tokens = document.querySelectorAll(TYPE_COMPLETE_TABLE.concat(' input'));
+      if (DEBUG) { terminal.log("TYPE_COMPLETE_TABLE_TYPE", { displayTokens, tokens }); }
+      var index = 0;
+      displayTokens.forEach((line) => {
+        line.forEach((column) => {
+          if(column[0].isBlank == true) {
+            dynamicInput(tokens[index], column[0].text);
+            index++;
+          }
+        });
+      });
+      return { displayTokens };
+    }
     case TAP_COMPLETE_TYPE: {
       const { choices, correctIndices } = challenge;
       const tokens = document.querySelectorAll(WORD_BANK.concat(' ', CHALLENGE_TAP_TOKEN));
