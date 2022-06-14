@@ -46,10 +46,10 @@ const SPEAK_TYPE = "speak";
 const SELECT_PRONUNCIATION_TYPE = "selectPronunciation";
 const LISTEN_ISOLATION_TYPE = "listenIsolation";
 const TYPE_COMPLETE_TABLE_TYPE = "typeCompleteTable";
+const ASSIST_TYPE = "assist";
 const LISTEN_MATCH_TYPE = "listenMatch";
 
 // W.I.P
-const ASSIST_TYPE = "assist";
 const TAP_COMPLETE_TYPE = "tapComplete";
 const GAP_FILL_TYPE = "gapFill";
 const CHARACTER_TRACE_TYPE = "characterTrace";
@@ -209,6 +209,18 @@ function classify() {
         }
       }
       return { pairs }
+    }
+
+    case ASSIST_TYPE: {
+      const { choices, correctIndex } = challenge;
+      const tokens = document.querySelectorAll(CHALLENGE_CHOICE);
+      if (DEBUG) { terminal.log("ASSIST_TYPE", { choices, correctIndex, tokens }); }
+      tokens.forEach((e, i) => {
+        if(i == correctIndex) {
+          e.dispatchEvent(clickEvent);
+        }
+      });
+      return { choices, correctIndex };
     }
 
     case GAP_FILL_TYPE:
