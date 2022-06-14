@@ -68,7 +68,7 @@ const PLAYER_NEXT = '[data-test="player-next"]';
 const PLAYER_SKIP = '[data-test="player-skip"]';
 const AUDIO_BUTTON = '[data-test="audio-button"]';
 const WORD_BANK = '[data-test="word-bank"]';
-const BLAME_INCORRECT = '[data-test="blame-incorrect"]';
+const BLAME_INCORRECT = '[data-test="blame blame-incorrect"]';
 const CHARACTER_MATCH = '[data-test="challenge challenge-characterMatch"]';
 const STORIES_PLAYER_NEXT = '[data-test="stories-player-continue"]';
 const STORIES_CHOICE = '[data-test="stories-choice"]';
@@ -197,8 +197,11 @@ function classify() {
 
     case TAP_COMPLETE_TYPE: {
       const { choices, correctIndices } = challenge;
-      const tokens = document.querySelectorAll(WORD_BANK);
+      const tokens = document.querySelectorAll(WORD_BANK.concat(' ', CHALLENGE_TAP_TOKEN));
       if (DEBUG) {terminal.log("TAP_COMPLETE_TYPE", { choices, correctIndices, tokens });}
+      correctIndices.forEach((i) => {
+        tokens[i].dispatchEvent(clickEvent);
+      });
       return { choices, correctIndices };
     }
 
