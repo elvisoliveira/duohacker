@@ -138,6 +138,7 @@ function pressEnter() {
     bubbles: true,
     cancelable: false,
   });
+  breakWhenIncorrect();
   document
     .querySelector('button[data-test="player-next"]')
     .dispatchEvent(clickEvent);
@@ -397,8 +398,8 @@ function main() {
       .textContent.toUpperCase();
     if (isPlayerNext.valueOf() !== "CONTINUE") {
       classify();
-      breakWhenIncorrect();
-      pressEnter();
+      // breakWhenIncorrect();
+      // pressEnter();
     }
     setTimeout(pressEnter, 150);
   } catch (e) {
