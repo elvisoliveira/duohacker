@@ -173,7 +173,7 @@ function dynamicInput(element, msg) {
 function classify() {
   const challenge = getChallenge();
   if (!challenge) return;
-  if (DEBUG) console.log(`${challenge.type}`, challenge);
+  if (DEBUG) terminal.log(`${challenge.type}`, challenge);
   switch (challenge.type) {
     case GAP_FILL_TYPE:
     case SELECT_TYPE:
@@ -184,7 +184,7 @@ function classify() {
     case FORM_TYPE: {
       const { choices, correctIndex } = challenge;
       if (DEBUG) {
-        console.log(
+        terminal.log(
           "READ_COMPREHENSION, LISTEN_COMPREHENSION, CHARACTER_SELECT_TYPE, GAP_FILL_TYPE, SELECT_PRONUNCIATION_TYPE",
           { choices, correctIndex }
         );}
@@ -197,14 +197,14 @@ function classify() {
     case TAP_COMPLETE_TYPE: {
       const { choices, correctIndices } = challenge;
       const tokens = document.querySelectorAll(WORD_BANK);
-      if (DEBUG) {console.log("TAP_COMPLETE_TYPE", { choices, correctIndices, tokens });}
+      if (DEBUG) {terminal.log("TAP_COMPLETE_TYPE", { choices, correctIndices, tokens });}
       return { choices, correctIndices };
     }
 
     case MATCH_TYPE: {
       const { pairs } = challenge;
       const tokens = document.querySelectorAll(CHALLENGE_TAP_TOKEN);
-      if (DEBUG) {console.log("CHARACTER_MATCH_TYPE", { tokens, pairs });}
+      if (DEBUG) {terminal.log("CHARACTER_MATCH_TYPE", { tokens, pairs });}
       pairs.forEach((pair) => {
         for (let i = 0; i < tokens.length; i++) {
           if (
@@ -220,7 +220,7 @@ function classify() {
     case CHARACTER_MATCH_TYPE: {
       const { pairs } = challenge;
       const tokens = document.querySelectorAll(CHALLENGE_TAP_TOKEN);
-      if (DEBUG) {console.log("CHARACTER_MATCH_TYPE", { tokens, pairs });}
+      if (DEBUG) {terminal.log("CHARACTER_MATCH_TYPE", { tokens, pairs });}
       pairs.forEach((pair) => {
         for (let i = 0; i < tokens.length; i++) {
           if (
@@ -236,7 +236,7 @@ function classify() {
 
     case TRANSLATE_TYPE: {
       const { correctTokens, correctSolutions } = challenge;
-      if (DEBUG) {console.log("TRANSLATE_TYPE", { correctTokens, correctSolutions });}
+      if (DEBUG) {terminal.log("TRANSLATE_TYPE", { correctTokens, correctSolutions });}
       if (correctTokens) {
         const tokens = document.querySelectorAll(CHALLENGE_TAP_TOKEN);
         let ignoreTokeIndexes = [];
@@ -248,7 +248,7 @@ function classify() {
               token.dispatchEvent(clickEvent);
               ignoreTokeIndexes.push(tokenIndex);
               if (DEBUG)
-                console.log(
+                terminal.log(
                   `correctTokenIndex [${correctTokens[correctTokenIndex]}] - tokenIndex [${token.innerText}]`
                 );
               break;
@@ -266,7 +266,7 @@ function classify() {
 
     case NAME_TYPE: {
       const { correctSolutions, articles } = challenge;
-      if (DEBUG) {console.log("NAME_TYPE", { correctSolutions, articles });}
+      if (DEBUG) {terminal.log("NAME_TYPE", { correctSolutions, articles });}
       const regexFrom = (articles, flags) =>
         new RegExp(
           articles
@@ -280,16 +280,16 @@ function classify() {
         document.querySelectorAll(CHALLENGE_JUDGE_TEXT);
       let string = correctSolutions[0];
       const pattern = regexFrom(articles, "i");
-      console.log(string);
+      terminal.log(string);
       let result;
       while ((result = pattern.exec(string))) {
         let x = string.replace(result[0], "");
         let correctSolution = x.trim();
-        console.log(correctSolution);
+        terminal.log(correctSolution);
         dynamicInput(textInputElement, correctSolution);
         for (let i = 0; i < articles.length; i++) {
           if (articles[i] === result) {
-            console.log(result);
+            terminal.log(result);
             articleChoiceElement[i].dispatchEvent(clickEvent);
             document
               .querySelectorAll(CHALLENGE_CHOICE)
@@ -314,7 +314,7 @@ function classify() {
 
     case LISTEN_TAP_TYPE: {
       const { correctTokens } = challenge;
-      if (DEBUG) {console.log("LISTEN_TAP_TYPE", { correctTokens });}
+      if (DEBUG) {terminal.log("LISTEN_TAP_TYPE", { correctTokens });}
       const tokens = document.querySelectorAll(CHALLENGE_TAP_TOKEN);
       for (let wordIndex in correctTokens) {
         tokens.forEach((token) => {
@@ -328,7 +328,7 @@ function classify() {
 
     case LISTEN_TYPE: {
       const { prompt } = challenge;
-      if (DEBUG) {console.log("LISTEN_TYPE", { prompt });}
+      if (DEBUG) {terminal.log("LISTEN_TYPE", { prompt });}
       let textInputElement = document.querySelectorAll(
         CHALLENGE_TRANSLATE_INPUT
       )[0];
@@ -338,7 +338,7 @@ function classify() {
 
     case JUDGE_TYPE: {
       const { correctIndices } = challenge;
-      if (DEBUG) {console.log("JUDGE_TYPE", { correctIndices });}
+      if (DEBUG) {terminal.log("JUDGE_TYPE", { correctIndices });}
       document
         .querySelectorAll(CHALLENGE_JUDGE_TEXT)
         [correctIndices[0]].dispatchEvent(clickEvent);
@@ -349,7 +349,7 @@ function classify() {
     case CHARACTER_INTRO_TYPE: {
       const { choices, correctIndex } = challenge;
       if (DEBUG)
-        {console.log("CHARACTER_INTRO_TYPE, DIALOGUE_TYPE", {
+        {terminal.log("CHARACTER_INTRO_TYPE, DIALOGUE_TYPE", {
           choices,
           correctIndex,
         });}
@@ -361,7 +361,7 @@ function classify() {
 
     case SELECT_TRANSCRIPTION_TYPE: {
       const { choices, correctIndex } = challenge;
-      if (DEBUG) {console.log("SELECT_TRANSCRIPTION_TYPE", { choices, correctIndex });}
+      if (DEBUG) {terminal.log("SELECT_TRANSCRIPTION_TYPE", { choices, correctIndex });}
       document
         .querySelectorAll(CHALLENGE_JUDGE_TEXT)
         [correctIndex].dispatchEvent(clickEvent);
@@ -370,7 +370,7 @@ function classify() {
 
     case SPEAK_TYPE: {
       const { prompt } = challenge;
-      if (DEBUG) {console.log("SPEAK_TYPE", { prompt });}
+      if (DEBUG) {terminal.log("SPEAK_TYPE", { prompt });}
       document.querySelectorAll(PLAYER_SKIP)[0].dispatchEvent(clickEvent);
       return { prompt };
     }
@@ -384,7 +384,7 @@ function classify() {
 function breakWhenIncorrect() {
   const isBreak = document.querySelectorAll(BLAME_INCORRECT).length > 0;
   if (isBreak) {
-    console.log("Incorrect, stopped");
+    terminal.log("Incorrect, stopped");
     clearInterval(mainInterval);
   }
 }
@@ -402,7 +402,7 @@ function main() {
     }
     setTimeout(pressEnter, 150);
   } catch (e) {
-    console.log(e);
+    // terminal.log(e);
   }
 }
 
@@ -418,23 +418,32 @@ function stories() {
     }
     setTimeout(pressEnterStories, 50);
   } catch (e) {
-    console.log(e);
+    terminal.log(e);
   }
 }
 
 // Calls main()
 function solveChallenge() {
+  setConsole();
   // Check if its a Skill / Alphabet / Checkpoint URL
   if (/[sac][klh][ipe][lhc][lak]/gi.test(window.location.href) == true) {
-    if (DEBUG) {console.log("Skill URL Detected");}
+    if (DEBUG) {terminal.log("Skill URL Detected");}
     mainInterval = setInterval(main, TIME_OUT);
   }
   // Check if its a Stories URL
   if (/stories/gi.test(window.location.href) == true) {
-    if (DEBUG) {console.log("Stories URL Detected");}
+    if (DEBUG) {terminal.log("Stories URL Detected");}
     mainInterval = setInterval(stories, TIME_OUT);
   }
-  console.log(`to stop the script run "clearInterval(${mainInterval})"`);
+  terminal.log(`to stop the script run "clearInterval(${mainInterval})"`);
+}
+
+// To not mess duolingo own log
+function setConsole() {
+  var iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  document.body.appendChild(iframe);
+  window.terminal = iframe.contentWindow.console;
 }
 
 (solveChallenge)();
