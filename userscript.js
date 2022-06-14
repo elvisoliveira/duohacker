@@ -67,6 +67,7 @@ const CHALLENGE_LISTEN_TAP = '[data-test="challenge-listenTap"]';
 const CHALLENGE_JUDGE_TEXT = '[data-test="challenge-judge-text"]';
 const CHALLENGE_TEXT_INPUT = '[data-test="challenge-text-input"]';
 const CHALLENGE_TAP_TOKEN = '[data-test="challenge-tap-token"]';
+const CHALLENGE_TAP_TOKEN_TEXT = '[data-test="challenge-tap-token-text"]';
 const PLAYER_NEXT = '[data-test="player-next"]';
 const PLAYER_SKIP = '[data-test="player-skip"]';
 const AUDIO_BUTTON = '[data-test="audio-button"]';
