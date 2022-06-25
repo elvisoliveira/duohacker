@@ -51,6 +51,7 @@ const TYPE_CLOSE_TYPE = "typeCloze";
 const TAP_CLOSE_TYPE = "tapCloze";
 const ASSIST_TYPE = "assist";
 const LISTEN_MATCH_TYPE = "listenMatch";
+const LISTEN_COMPLETE_TYPE = "listenComplete";
 
 // W.I.P
 const TAP_COMPLETE_TYPE = "tapComplete";
@@ -197,6 +198,19 @@ function classify() {
   if (!challenge) return;
   if (DEBUG) terminal.log(`${challenge.type}`, challenge);
   switch (challenge.type) {
+    case LISTEN_COMPLETE_TYPE: {
+      const { displayTokens } = challenge;
+      if (DEBUG) { terminal.log("LISTEN_COMPLETE_TYPE", { displayTokens }); }
+      let tokens = document.querySelectorAll(CHALLENGE_TEXT_INPUT);
+      var i = 0;
+      displayTokens.forEach((token) => {
+        if(token.isBlank) {
+            dynamicInput(tokens[i], token.text);
+        }
+      });
+      return { displayTokens };
+    }
+
     case LISTEN_MATCH_TYPE: {
       const { pairs } = challenge;
       if (DEBUG) {
