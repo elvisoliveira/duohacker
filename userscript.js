@@ -451,6 +451,7 @@ function classify() {
       displayTokens.forEach((token) => {
         if(token.isBlank) {
             dynamicInput(tokens[i], token.text);
+            i++;
         }
       });
       return { displayTokens };
