@@ -460,13 +460,15 @@ function classify() {
     case LISTEN_TAP_TYPE: {
       const { correctTokens } = challenge;
       if (DEBUG) {terminal.log("LISTEN_TAP_TYPE", { correctTokens });}
-      const tokens = document.querySelectorAll(CHALLENGE_TAP_TOKEN);
-      for (let wordIndex in correctTokens) {
-        tokens.forEach((token) => {
-          if (token.innerText === correctTokens[wordIndex]) {
-            token.dispatchEvent(clickEvent);
+      const tokens = Array.from(document.querySelectorAll(CHALLENGE_TAP_TOKEN));
+      for (let word of correctTokens) {
+        for (let i of Object.keys(tokens)) {
+          if (tokens[i].innerText === word) {
+            tokens[i].dispatchEvent(clickEvent);
+            tokens.splice(i, 1);
+            break;
           }
-        });
+        }
       }
       return { correctTokens };
     }
