@@ -48,6 +48,7 @@ const LISTEN_ISOLATION_TYPE = "listenIsolation";
 const TAP_COMPLETE_TABLE_TYPE = "tapCompleteTable";
 const TYPE_COMPLETE_TABLE_TYPE = "typeCompleteTable";
 const TYPE_CLOSE_TYPE = "typeCloze";
+const TYPE_CLOSE_TABLE_TYPE = "typeClozeTable";
 const TAP_CLOSE_TYPE = "tapCloze";
 const ASSIST_TYPE = "assist";
 const LISTEN_MATCH_TYPE = "listenMatch";
@@ -73,6 +74,7 @@ const CHALLENGE_TEXT_INPUT = '[data-test="challenge-text-input"]';
 const CHALLENGE_TAP_TOKEN = '[data-test="challenge-tap-token"]';
 const CHALLENGE_TAP_TOKEN_TEXT = '[data-test="challenge-tap-token-text"]';
 const CHALLENGE_TYPE_CLOZE = '[data-test="challenge challenge-typeCloze"]';
+const CHALLENGE_TYPE_CLOZE_TABLE = '[data-test="challenge challenge-typeClozeTable"]';
 const PLAYER_NEXT = '[data-test="player-next"]';
 const PLAYER_SKIP = '[data-test="player-skip"]';
 const AUDIO_BUTTON = '[data-test="audio-button"]';
@@ -305,6 +307,24 @@ function classify() {
           dynamicInput(tokens[i], word.text.substring(word.damageStart, word.text.length));
           i++;
         }
+      });
+      return { displayTokens };
+    }
+
+    case TYPE_CLOSE_TABLE_TYPE: {
+      const { displayTokens } = challenge;
+      const tokens = document.querySelectorAll(CHALLENGE_TYPE_CLOZE_TABLE.concat(' input'));
+      if (DEBUG) { terminal.log("TYPE_CLOSE_TABLE_TYPE", { displayTokens, tokens }); }
+      let i = 0;
+      displayTokens.forEach((line) => {
+        line.forEach((column) => {
+          column.forEach((word) => {
+            if(word.damageStart) {
+              dynamicInput(tokens[i], word.text.substring(word.damageStart, word.text.length));
+              i++;
+            }
+          });
+        });
       });
       return { displayTokens };
     }
