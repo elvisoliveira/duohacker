@@ -262,13 +262,21 @@ function classify() {
     }
 
     case TAP_COMPLETE_TABLE_TYPE: {
-      const { choices } = challenge;
+      const { choices, displayTokens } = challenge;
       const tokens = document.querySelectorAll(WORD_BANK.concat(' ', CHALLENGE_TAP_TOKEN));
-      if (DEBUG) { terminal.log("TAP_COMPLETE_TABLE_TYPE", { choices, tokens }); }
-      choices.forEach((word, i) => {
-        tokens[i].dispatchEvent(clickEvent);
+      if (DEBUG) { terminal.log("TAP_COMPLETE_TABLE_TYPE", { choices, displayTokens, tokens }); }
+      displayTokens.forEach((line) => {
+        line.forEach((column) => {
+          if(column[0].isBlank == true) {
+            tokens.forEach((e) => {
+              if(e.innerText == column[0].text) {
+                e.dispatchEvent(clickEvent);
+              }
+            });
+          }
+        });
       });
-      return { choices };
+      return { choices, displayTokens };
     }
 
     case TYPE_COMPLETE_TABLE_TYPE: {
