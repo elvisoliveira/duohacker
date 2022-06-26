@@ -53,6 +53,7 @@ const TAP_CLOSE_TYPE = "tapCloze";
 const ASSIST_TYPE = "assist";
 const LISTEN_MATCH_TYPE = "listenMatch";
 const LISTEN_COMPLETE_TYPE = "listenComplete";
+const LISTEN_SPELL_TYPE = "listenSpell";
 
 // W.I.P
 const TAP_COMPLETE_TYPE = "tapComplete";
@@ -69,6 +70,7 @@ const CHALLENGE_CHOICE_CARD = '[data-test="challenge-choice-card"]';
 const CHALLENGE_CHOICE = '[data-test="challenge-choice"]';
 const CHALLENGE_TRANSLATE_INPUT = '[data-test="challenge-translate-input"]';
 const CHALLENGE_LISTEN_TAP = '[data-test="challenge-listenTap"]';
+const CHALLENGE_LISTEN_SPELL = '[data-test="challenge challenge-listenSpell"]';
 const CHALLENGE_JUDGE_TEXT = '[data-test="challenge-judge-text"]';
 const CHALLENGE_TEXT_INPUT = '[data-test="challenge-text-input"]';
 const CHALLENGE_TAP_TOKEN = '[data-test="challenge-tap-token"]';
@@ -200,6 +202,22 @@ function classify() {
   if (!challenge) return;
   if (DEBUG) terminal.log(`${challenge.type}`, challenge);
   switch (challenge.type) {
+    case LISTEN_SPELL_TYPE: {
+      const { displayTokens } = challenge;
+      if (DEBUG) { terminal.log("LISTEN_SPELL_TYPE", { displayTokens }); }
+      const tokens = document.querySelectorAll(CHALLENGE_LISTEN_SPELL.concat(' input[type="text"]:not([readonly])'));
+      let i = 0;
+      displayTokens.forEach((word) => {
+        if(!isNaN(word.damageStart)) {
+          for (let c of word.text.substring(word.damageStart, word.damageEnd ?? word.text.length)) {
+            dynamicInput(tokens[i], c);
+            i++;
+          }
+        }
+      });
+      return { displayTokens };
+    }
+
     case LISTEN_COMPLETE_TYPE: {
       const { displayTokens } = challenge;
       if (DEBUG) { terminal.log("LISTEN_COMPLETE_TYPE", { displayTokens }); }
