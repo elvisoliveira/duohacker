@@ -351,8 +351,8 @@ function classify() {
 
     case MATCH_TYPE: {
       const { pairs } = challenge;
-      const tokens = document.querySelectorAll(CHALLENGE_TAP_TOKEN);
-      if (DEBUG) {terminal.log("CHARACTER_MATCH_TYPE", { tokens, pairs });}
+      const tokens = document.querySelectorAll(CHALLENGE_TAP_TOKEN_TEXT);
+      if (DEBUG) {terminal.log("MATCH_TYPE", { tokens, pairs });}
       pairs.forEach((pair) => {
         for (let i = 0; i < tokens.length; i++) {
           if (
@@ -365,6 +365,7 @@ function classify() {
       });
       return { pairs };
     }
+
     case CHARACTER_MATCH_TYPE: {
       const { pairs } = challenge;
       const tokens = document.querySelectorAll(CHALLENGE_TAP_TOKEN);
@@ -372,8 +373,8 @@ function classify() {
       pairs.forEach((pair) => {
         for (let i = 0; i < tokens.length; i++) {
           if (
-            tokens[i].innerText === pair.transliteration ||
-            tokens[i].innerText === pair.character
+            tokens[i].innerText === pair.fromToken ||
+            tokens[i].innerText === pair.learningToken
           ) {
             tokens[i].dispatchEvent(clickEvent);
           }
