@@ -23,7 +23,7 @@
 
 const DEBUG = false;
 let mainInterval;
-const dataTestComponentClassName = "e4VJZ";
+const dataTestComponentClassName = ".e4VJZ, .FQpeZ";
 const TIME_OUT = 1000;
 
 // Challenge types
@@ -128,7 +128,7 @@ function getChallengeObj(theObject) {
 
 // Gets the Challenge
 function getChallenge() {
-  const dataTestDOM = document.getElementsByClassName(
+  const dataTestDOM = document.querySelectorAll(
     dataTestComponentClassName
   )[0];
 
