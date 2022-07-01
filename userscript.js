@@ -58,13 +58,13 @@ const TAP_COMPLETE_TYPE = "tapComplete";
 const MATCH_TYPE = "match";
 
 // W.I.P
-const TAP_COMPLETE_TYPE = "tapComplete";
 const GAP_FILL_TYPE = "gapFill";
 const CHARACTER_TRACE_TYPE = "characterTrace";
 const CHALLENGE_PUZZLE_TYPE = "characterPuzzle";
 const DEFINITION_TYPE = "definition";
 const TAP_DESCRIBE_TYPE = "tapDescribe";
 const FREE_RESPONSE_TYPE = "freeResponse";
+const PARTIAL_REVERSE_TRANSLATE_TYPE = "partialReverseTranslate";
 
 // Query DOM keys
 const CHALLENGE_CHOICE_CARD = '[data-test="challenge-choice-card"]';
@@ -230,6 +230,12 @@ function classify() {
         }
       });
       return { displayTokens };
+    }
+
+    case PARTIAL_REVERSE_TRANSLATE_TYPE: {
+      const { displayTokens, grader } = challenge;
+      if (DEBUG) { terminal.log("PARTIAL_REVERSE_TRANSLATE_TYPE", { displayTokens, grader }); }
+      debugger;
     }
 
     case LISTEN_MATCH_TYPE: {
