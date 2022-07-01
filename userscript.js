@@ -54,6 +54,8 @@ const ASSIST_TYPE = "assist";
 const LISTEN_MATCH_TYPE = "listenMatch";
 const LISTEN_COMPLETE_TYPE = "listenComplete";
 const LISTEN_SPELL_TYPE = "listenSpell";
+const TAP_COMPLETE_TYPE = "tapComplete";
+const MATCH_TYPE = "match";
 
 // W.I.P
 const TAP_COMPLETE_TYPE = "tapComplete";
@@ -61,7 +63,6 @@ const GAP_FILL_TYPE = "gapFill";
 const CHARACTER_TRACE_TYPE = "characterTrace";
 const CHALLENGE_PUZZLE_TYPE = "characterPuzzle";
 const DEFINITION_TYPE = "definition";
-const MATCH_TYPE = "match";
 const TAP_DESCRIBE_TYPE = "tapDescribe";
 const FREE_RESPONSE_TYPE = "freeResponse";
 
