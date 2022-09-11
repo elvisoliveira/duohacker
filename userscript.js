@@ -235,7 +235,18 @@ function classify() {
     case PARTIAL_REVERSE_TRANSLATE_TYPE: {
       const { displayTokens, grader } = challenge;
       if (DEBUG) { terminal.log("PARTIAL_REVERSE_TRANSLATE_TYPE", { displayTokens, grader }); }
-      debugger;
+      let tokens = document.querySelectorAll("[contenteditable=true]");
+      let value = '';
+      let event = new Event("input", { bubbles: true });
+      event.simulated = true;
+      displayTokens.forEach((token) => {
+        if(token.isBlank) {
+            value = value + token.text;
+        }
+      });
+      tokens[0].textContent = value;
+      tokens[0].dispatchEvent(event);
+      return { displayTokens, grader  };
     }
 
     case LISTEN_MATCH_TYPE: {
