@@ -257,10 +257,11 @@ function classify() {
       return { pairs }
     }
 
+    case DEFINITION_TYPE:
     case ASSIST_TYPE: {
       const { choices, correctIndex } = challenge;
       const tokens = document.querySelectorAll(CHALLENGE_CHOICE);
-      if (DEBUG) { terminal.log("ASSIST_TYPE", { choices, correctIndex, tokens }); }
+      if (DEBUG) { terminal.log("ASSIST_TYPE, DEFINITION_TYPE", { choices, correctIndex, tokens }); }
       tokens.forEach((e, i) => {
         if(i == correctIndex) {
           e.dispatchEvent(clickEvent);
