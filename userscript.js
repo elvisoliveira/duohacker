@@ -459,42 +459,33 @@ function classify() {
     }
 
     case NAME_TYPE: {
-      const { correctSolutions, articles } = challenge;
-      if (DEBUG) {terminal.log("NAME_TYPE", { correctSolutions, articles });}
-      const regexFrom = (articles, flags) =>
-        new RegExp(
-          articles
-            .map((s) => s.replace(/[()[\]{}*+?^$|#.,\/\\\s-]/g, "\\$&"))
-            .sort((a, b) => b.length - a.length)
-            .join("|"),
-          flags
-        );
-      let textInputElement = document.querySelectorAll(CHALLENGE_TEXT_INPUT)[0];
-      let articleChoiceElement =
-        document.querySelectorAll(CHALLENGE_JUDGE_TEXT);
-      let string = correctSolutions[0];
-      const pattern = regexFrom(articles, "i");
-      terminal.log(string);
-      let result;
-      while ((result = pattern.exec(string))) {
-        let x = string.replace(result[0], "");
-        let correctSolution = x.trim();
-        terminal.log(correctSolution);
-        dynamicInput(textInputElement, correctSolution);
-        for (let i = 0; i < articles.length; i++) {
-          if (articles[i] === result) {
-            terminal.log(result);
-            articleChoiceElement[i].dispatchEvent(clickEvent);
-            document
-              .querySelectorAll(CHALLENGE_CHOICE)
-              [i].dispatchEvent(clickEvent);
-            document
-              .querySelectorAll(CHALLENGE_CHOICE)
-              [result].dispatchEvent(clickEvent);
-          }
-        }
-        return { correctSolutions, articles };
+      const { correctSolutions, articles, grader } = challenge;
+      if (DEBUG) { terminal.log("NAME_TYPE", { correctSolutions, articles, grader }); }
+      let tokens = document.querySelectorAll(CHALLENGE_TEXT_INPUT);
+      debugger;
+      if(articles) {
+        let found = false;
+        articles.forEach((article, i) => {
+          grader.vertices.forEach((vertice) => {
+            if(found && vertice.length > 0) {
+              let word = vertice[0].lenient.trim();
+              if(word != '' && articles.indexOf(word) == -1) {
+                dynamicInput(tokens[0], word);
+              }
+            }
+            if(vertice.length > 0 && vertice[0].lenient == article) {
+              found = true;
+              document.querySelectorAll(CHALLENGE_CHOICE)[i].dispatchEvent(clickEvent);
+            }
+          });
+        });
       }
+      else {
+        correctSolutions.forEach((solution, i) => {
+          dynamicInput(tokens[i], solution);
+        });       
+      }
+      return { correctSolutions, articles, grader };
     }
 
     case COMPLETE_REVERSE_TRANSLATION_TYPE: {
