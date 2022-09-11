@@ -251,9 +251,7 @@ function classify() {
 
     case LISTEN_MATCH_TYPE: {
       const { pairs } = challenge;
-      if (DEBUG) {
-        terminal.log("LISTEN_MATCH_TYPE", { pairs });
-      }
+      if (DEBUG) { terminal.log("LISTEN_MATCH_TYPE", { pairs }); }
       const tokens = document.querySelectorAll(CHALLENGE_TAP_TOKEN);
       for (let i = 0; i <= 3; i++) {
         f = getReactFiber(tokens[i]);
