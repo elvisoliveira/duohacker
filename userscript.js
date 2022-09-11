@@ -57,8 +57,6 @@ const LISTEN_COMPLETE_TYPE = "listenComplete";
 const LISTEN_SPELL_TYPE = "listenSpell";
 const TAP_COMPLETE_TYPE = "tapComplete";
 const MATCH_TYPE = "match";
-
-// W.I.P
 const GAP_FILL_TYPE = "gapFill";
 const CHARACTER_TRACE_TYPE = "characterTrace";
 const CHALLENGE_PUZZLE_TYPE = "characterPuzzle";
@@ -185,10 +183,10 @@ function pressEnterStories() {
 }
 
 // dynamicInput() function
-function dynamicInput(element, msg) {
+function dynamicInput(element, text) {
   let input = element;
   let lastValue = input.value;
-  input.value = msg;
+  input.value = text;
   let event = new Event("input", { bubbles: true });
   event.simulated = true;
   let tracker = input._valueTracker;
