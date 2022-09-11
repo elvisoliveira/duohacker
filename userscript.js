@@ -49,6 +49,7 @@ const TAP_COMPLETE_TABLE_TYPE = "tapCompleteTable";
 const TYPE_COMPLETE_TABLE_TYPE = "typeCompleteTable";
 const TYPE_CLOSE_TYPE = "typeCloze";
 const TYPE_CLOSE_TABLE_TYPE = "typeClozeTable";
+const TAP_CLOSE_TABLE_TYPE = "tapClozeTable";
 const TAP_CLOSE_TYPE = "tapCloze";
 const ASSIST_TYPE = "assist";
 const LISTEN_MATCH_TYPE = "listenMatch";
@@ -357,6 +358,26 @@ function classify() {
             if(word.damageStart) {
               dynamicInput(tokens[i], word.text.substring(word.damageStart, word.text.length));
               i++;
+            }
+          });
+        });
+      });
+      return { displayTokens };
+    }
+
+    case TAP_CLOSE_TABLE_TYPE: {
+      const { displayTokens } = challenge;
+      const tokens = document.querySelectorAll(CHALLENGE_TAP_TOKEN_TEXT);
+      if (DEBUG) { terminal.log("TYPE_CLOSE_TABLE_TYPE", { displayTokens, tokens }); }
+      displayTokens.forEach((line) => {
+        line.forEach((column) => {
+          column.forEach((word) => {
+            if(word.damageStart) {
+              tokens.forEach((token) => {
+                if(token.innerText == word.text.substring(word.damageStart, word.text.length)) {
+                  token.dispatchEvent(clickEvent);
+                }
+              });
             }
           });
         });
