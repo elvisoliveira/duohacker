@@ -462,28 +462,23 @@ function classify() {
       const { correctSolutions, articles, grader } = challenge;
       if (DEBUG) { terminal.log("NAME_TYPE", { correctSolutions, articles, grader }); }
       let tokens = document.querySelectorAll(CHALLENGE_TEXT_INPUT);
-      debugger;
       if(articles) {
-        let found = false;
-        articles.forEach((article, i) => {
-          grader.vertices.forEach((vertice) => {
-            if(found && vertice.length > 0) {
-              let word = vertice[0].lenient.trim();
-              if(word != '' && articles.indexOf(word) == -1) {
-                dynamicInput(tokens[0], word);
-              }
-            }
-            if(vertice.length > 0 && vertice[0].lenient == article) {
-              found = true;
+        correctSolutions.forEach((solution) => {
+          solution = solution.split(' ');
+          solution.forEach((word) => {
+            let i = articles.indexOf(word);
+            if(i > -1) {
               document.querySelectorAll(CHALLENGE_CHOICE)[i].dispatchEvent(clickEvent);
+              solution.splice(solution.indexOf(word), 1);
+              dynamicInput(tokens[0], solution.join(' '));
             }
           });
         });
       }
       else {
         correctSolutions.forEach((solution, i) => {
-          dynamicInput(tokens[i], solution);
-        });       
+          dynamicInput(tokens[0], solution);
+        });
       }
       return { correctSolutions, articles, grader };
     }
