@@ -345,7 +345,7 @@ function classify() {
       const tokens = document.querySelectorAll('button'.concat(CHALLENGE_TAP_TOKEN));
       for (let i = 0; i <= 3; i++) {
         f = getReactFiber(tokens[i]);
-        text = f.return.return.memoizedProps.children.props["data-test"].split("-")[0];
+        text = f.return.child.stateNode.dataset.test.split("-")[0];
         tokens[i].dispatchEvent(clickEvent);
         for (let j = 4; j <= 7; j++) {
           if(tokens[j].querySelector(CHALLENGE_TAP_TOKEN_TEXT).innerText.includes(text)) {
