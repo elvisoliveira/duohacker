@@ -6,6 +6,7 @@
 // @version          1.0.6
 // @description      An autoanswer script for Duolingo.
 // @author           elvisoliveira
+// @match            https://www.duolingo.com/practice*
 // @match            https://www.duolingo.com/learn*
 // @license          MIT
 // @grant            none
