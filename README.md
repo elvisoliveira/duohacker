@@ -1,37 +1,16 @@
-<h1 align="center">
-  <br>
-  <a href="https://github.com/smintf/duohacker/">
-  <br>
-  duohacker
-  <br>
-</h1>
+# duohacker
 
-<h4 align="center">there's cheats for Duolingo? what</h4>
-
-<p align="center">
-  <a href="https://github.com/smintf/duohacker/blob/main/LICENSE/">
-    <img src="https://img.shields.io/badge/license-MIT-black">
-  </a>
-  <a href="https://github.com/smintf/duohacker/releases">
-      <img src="https://img.shields.io/badge/version-v1.0.5-blue">
-  </a>
-  <a href="https://github.com/smintf/duohacker/">
-      <img src="https://img.shields.io/badge/status-works-success">
-  </a>
-  <a href="https://opensource.org/">
-      <img src="https://img.shields.io/badge/Open%20Source-true-brightgreen">
-  </a>
-</p>
+there's cheats for Duolingo? what
 
 ### What's this?
 
-An Auto-Answer script for Duolingo that allows you to grind XP and Lingots.
+An Auto-Answer script for Duolingo that allows you to grind XP and Gems.
 
 ### Usage
 
-1. Install the userscript from [Greasyfork](https://greasyfork.org/en/scripts/440703-duohacker) or [OpenUserJS](https://openuserjs.org/scripts/smintf/Duohacker) using [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/get-it/).
+1. Install the userscript from [Greasyfork](https://greasyfork.org/en/scripts/491399-duohacker) using [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/get-it/).
 2. Enable it in your Userscript Manager.
-3. Go onto a Duolingo challenge page (www.duolingo.com/skill*).
+3. Go onto a Duolingo challenge page (www.duolingo.com/practice).
 4. Refresh and wallah!
 
 ### Known Bugs
