@@ -344,11 +344,14 @@ function classify() {
       if (DEBUG) { terminal.log("LISTEN_MATCH_TYPE", { pairs }); }
       const tokens = document.querySelectorAll('button'.concat(CHALLENGE_TAP_TOKEN));
       for (let i = 0; i <= 3; i++) {
-        f = getReactFiber(tokens[i]);
-        text = f.return.child.stateNode.dataset.test.split("-")[0];
+        const dataset = getReactFiber(tokens[i]).return.child.stateNode.dataset.test;
+        const word = dataset.split('-')[0];
         tokens[i].dispatchEvent(clickEvent);
         for (let j = 4; j <= 7; j++) {
-          if(tokens[j].querySelector(CHALLENGE_TAP_TOKEN_TEXT).innerText.includes(text)) {
+          const text = tokens[j].querySelector(CHALLENGE_TAP_TOKEN_TEXT).innerText;
+          if(/\s/g.test(dataset) && text.endsWith(` ${word}`)) {
+            tokens[j].dispatchEvent(clickEvent);
+          } else if (text == word) {
             tokens[j].dispatchEvent(clickEvent);
           }
         }
@@ -620,7 +623,7 @@ function classify() {
     case LISTEN_TAP_TYPE: {
       const { correctTokens } = challenge;
       if (DEBUG) {terminal.log("LISTEN_TAP_TYPE", { correctTokens });}
-      const tokens = Array.from(document.querySelectorAll(CHALLENGE_TAP_TOKEN));
+      const tokens = Array.from(document.querySelectorAll(CHALLENGE_TAP_TOKEN)).filter(e => e.tagName === 'BUTTON');
       for (let word of correctTokens) {
         for (let i of Object.keys(tokens)) {
           if (tokens[i].innerText === word) {
@@ -701,8 +704,9 @@ function main() {
   try {
     let isPlayerNext = document.querySelectorAll(PLAYER_NEXT);
     let test = document.querySelector("[data-test=\"plus-no-thanks\"], [data-test=\"practice-hub-ad-no-thanks-button\"]");
-    if (isPlayerNext !== null && isPlayerNext.length > 0 && isPlayerNext[0].textContent.toUpperCase().valueOf() !== "CONTINUE") {
-      classify();
+    if(isPlayerNext !== null && isPlayerNext.length > 0) {
+      if(isPlayerNext[0].getAttribute('aria-disabled') === 'true')
+        classify();
     } else if (test !== null && test.length > 0) {
       test.click();
     } else if (/learn/gi.test(window.location.href) == true) {
@@ -769,8 +773,7 @@ function solveChallenge() {
   }
   if (/learn/gi.test(window.location.href) == true) {
     if (DEBUG) {terminal.log("Main URL Detected");}
-    clearInterval(mainInterval);
-    mainInterval = setInterval(learn, TIME_OUT);
+    window.location.replace("https://www.duolingo.com/practice");
   }
   terminal.log(`to stop the script run "clearInterval(${mainInterval})"`);
 }
