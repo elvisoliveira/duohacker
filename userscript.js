@@ -1,29 +1,18 @@
 // ==UserScript==
 // @name             Duohacker
 // @namespace        https://www.duolingo.com/
-// @homepageURL      https://github.com/smintf/duohacker
-// @supportURL       https://github.com/smintf/duohacker/issues
-// @version          1.0.5
+// @homepageURL      https://github.com/elvisoliveira/duohacker
+// @supportURL       https://github.com/elvisoliveira/duohacker/issues
+// @version          1.0.6
 // @description      An autoanswer script for Duolingo.
-// @author           Smint <smintoverflow@gmail.com>
-// @copyright        Smint
-// @match            https://www.duolingo.com/skill*
-// @match            https://www.duolingo.com/alphabet*
-// @match            https://www.duolingo.com/checkpoint*
-// @match            https://www.duolingo.com/stories*
-// @match            https://www.duolingo.com/practice*
-// @match            https://www.duolingo.com/lesson*
+// @author           elvisoliveira
 // @match            https://www.duolingo.com/learn*
 // @license          MIT
 // @grant            none
 // @run-at           document-end
 // ==/UserScript==
 
-// ==OpenUserJS==
-// @author smintf
-// ==/OpenUserJS==
-
-const DEBUG = true;
+const DEBUG = false;
 let mainInterval;
 const dataTestComponentClassName = ".e4VJZ, .FQpeZ, ._35e5D";
 const TIME_OUT = 3000;
