@@ -15,7 +15,6 @@
 
 const DEBUG = false;
 let mainInterval;
-const dataTestComponentClassName = ".e4VJZ, .FQpeZ, ._35e5D";
 const TIME_OUT = 3000;
 
 // Challenge types
@@ -156,7 +155,7 @@ function getProps(element) {
 
 // Gets the Challenge
 function getChallenge() {
-  const dataTestDOM = document.querySelectorAll(dataTestComponentClassName);
+  const dataTestDOM = document.querySelectorAll('[data-test~="challenge"]');
   if (dataTestDOM.length > 0) {
     let current = 0;
     for (let i = 0; i < dataTestDOM.length; i++) {
