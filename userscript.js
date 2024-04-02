@@ -3,7 +3,7 @@
 // @namespace        https://www.duolingo.com/
 // @homepageURL      https://github.com/elvisoliveira/duohacker
 // @supportURL       https://github.com/elvisoliveira/duohacker/issues
-// @version          1.0.7
+// @version          1.0.8
 // @description      An autoanswer script for Duolingo.
 // @author           elvisoliveira
 // @match            https://www.duolingo.com/practice*
