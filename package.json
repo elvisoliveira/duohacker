@@ -1,0 +1,16 @@
+{
+  "name": "duohacker",
+  "version": "1.0.8",
+  "description": "there's cheats for Duolingo? what",
+  "main": "bundle.js",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-multi-entry": "^6.0.1",
+    "userscript-metadata": "^1.1.0"
+  }
+}
