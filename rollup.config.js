@@ -1,8 +1,9 @@
-import { stringify } from 'userscript-metadata';
+import { stringify } from 'userscript-meta';
 import { readFileSync } from "fs";
 import multi from '@rollup/plugin-multi-entry';
 
 const metadata = JSON.parse(readFileSync("package.json", "utf-8"));
+const namespace = 'https://www.duolingo.com';
 
 export default {
   input: [
@@ -13,15 +14,15 @@ export default {
     file: 'bundle.js',
     banner: () => stringify({
       'name': metadata.name,
-      'namespace': 'https://www.duolingo.com/',
-      'homepageURL': 'https://github.com/elvisoliveira/duohacker',
-      'supportURL': 'https://github.com/elvisoliveira/duohacker/issues',
+      'namespace': namespace,
+      'homepageURL': metadata.homepage,
+      'supportURL': `${metadata.homepage}/issues`,
       'version': metadata.version,
       'description': metadata.description,
       'author': metadata.author,
       'match': [
-        'https://www.duolingo.com/practice*',
-        'https://www.duolingo.com/learn*'
+        `${namespace}/practice*`,
+        `${namespace}/learn*`
       ],
       'license': metadata.license,
       'grant': 'none',
@@ -31,6 +32,6 @@ export default {
   plugins: [
     multi({
       exports: false
-    })
+    }),
   ]
 };

@@ -2,6 +2,7 @@
   "name": "duohacker",
   "version": "1.0.8",
   "description": "there's cheats for Duolingo? what",
+  "homepage": "https://github.com/elvisoliveira/duohacker",
   "main": "bundle.js",
   "type": "module",
   "scripts": {
@@ -11,6 +12,7 @@
   "license": "ISC",
   "devDependencies": {
     "@rollup/plugin-multi-entry": "^6.0.1",
-    "userscript-metadata": "^1.1.0"
+    "rollup": "^4.14.1",
+    "userscript-meta": "^1.0.1"
   }
 }
