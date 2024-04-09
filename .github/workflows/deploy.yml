@@ -43,7 +43,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               release_id: release.data.id,
-              name: path.parse(path).base,
+              name: path.parse(file).base,
               data: await fs.readFile(file),
               headers: {
                 "Content-Type": "text/javascript",
