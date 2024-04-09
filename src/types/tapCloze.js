@@ -11,6 +11,6 @@ window.actions.tapCloze = (challenge) => {
                 }
             }
         });
-    };
+    }
     return { choices, correctIndices };
 };

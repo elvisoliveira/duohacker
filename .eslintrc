@@ -1,0 +1,25 @@
+{
+    "extends": "eslint:recommended",
+    "rules": {
+        "indent": ["error", 4],
+        "prefer-arrow-callback": "error",
+        "operator-linebreak": "off",
+        "comma-style": "off",
+        "no-debugger": "off",
+        "quotes": [2, "single", { "avoidEscape": true }]
+    },
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+    },
+    "env": {
+        "browser": true
+    },
+    "globals": {
+        "clickEvent": true,
+        "dynamicInput": true,
+        "terminal": true,
+        "getReactFiber": true,
+        "GM_getResourceText": true
+    }
+}

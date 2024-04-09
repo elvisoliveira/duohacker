@@ -2,13 +2,11 @@ import { keys } from './keys.js';
 
 const TIME_OUT = 3000;
 
-let mainInterval;
-
 window.dynamicInput = (element, text) => {
     let input = element;
     let lastValue = input.value;
     input.value = text;
-    let event = new Event("input", { bubbles: true });
+    let event = new Event('input', { bubbles: true });
     event.simulated = true;
     let tracker = input._valueTracker;
     if (tracker) {
@@ -17,7 +15,7 @@ window.dynamicInput = (element, text) => {
     input.dispatchEvent(event);
 }
 
-window.clickEvent = new MouseEvent("click", {
+window.clickEvent = new MouseEvent('click', {
     view: window,
     bubbles: true,
     cancelable: true,
@@ -28,8 +26,8 @@ window.clickEvent = new MouseEvent("click", {
 window.getReactFiber = (dom) => {
     const key = Object.keys(dom).find((key) => {
         return (
-            key.startsWith("__reactFiber$") || // react 17+
-            key.startsWith("__reactInternalInstance$") // react <17
+            key.startsWith('__reactFiber$') || // react 17+
+            key.startsWith('__reactInternalInstance$') // react <17
         );
     });
     return dom[key];
@@ -45,8 +43,8 @@ function getElementIndex(element) {
         }
     } else {
         for (let prop in element) {
-            if (prop == "challenge") {
-                if (typeof element[prop] == "object")
+            if (prop == 'challenge') {
+                if (typeof element[prop] == 'object')
                     return element;
                 return element[prop];
             }
@@ -66,7 +64,7 @@ function getProps(element) {
 
 // Gets the Challenge
 function getChallenge() {
-    const dataTestDOM = document.querySelectorAll('[data-test~="challenge"]');
+    const dataTestDOM = document.querySelectorAll(keys().CHALLENGE);
     if (dataTestDOM.length > 0) {
         let current = 0;
         for (let i = 0; i < dataTestDOM.length; i++) {
@@ -88,7 +86,7 @@ function classify() {
 }
 
 function pressEnter() {
-    const clickEvent = new MouseEvent("click", {
+    const clickEvent = new MouseEvent('click', {
         view: window,
         bubbles: true,
         cancelable: false,
@@ -97,7 +95,7 @@ function pressEnter() {
     // Stops when an answer is incorrect
     const isIncorrect = document.querySelectorAll(keys().BLAME_INCORRECT).length > 0;
     if (isIncorrect) {
-        terminal.log("Incorrect, stopped");
+        terminal.log('Incorrect, stopped');
         clearInterval(mainInterval);
     }
 
@@ -133,6 +131,7 @@ function setConsole() {
 }
 
 // Calls main()
+let mainInterval;
 function solveChallenge() {
     if (document.getElementById('logger') == null)
         setConsole();
@@ -144,7 +143,7 @@ function solveChallenge() {
     }
 
     if (/learn/gi.test(window.location.href) == true) {
-        window.location.replace("https://www.duolingo.com/practice");
+        window.location.replace('__namespace/practice');
     }
 }
 

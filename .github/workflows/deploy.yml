@@ -1,0 +1,51 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+      - name: Build
+        run: |
+          npm i
+          npm run build
+      - name: Determine tag
+        run: "echo \"RELEASE_TAG=$(npm pkg get version | sed 's/\"//g')\" >> $GITHUB_ENV"
+      - name: Create Release
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const release = await github.rest.repos.createRelease({
+              draft: false,
+              generate_release_notes: true,
+              name: process.env.RELEASE_TAG,
+              owner: context.repo.owner,
+              prerelease: false,
+              repo: context.repo.repo,
+              tag_name: process.env.RELEASE_TAG,
+            });
+            const path = require('path');
+            const file = path.basename(`./bundle.js`);
+            const fs = require('fs').promises;
+            const stat = await fs.stat(file);
+            await github.rest.repos.uploadReleaseAsset({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: release.data.id,
+              name: path.parse(path).base,
+              data: await fs.readFile(file),
+              headers: {
+                "Content-Type": "text/javascript",
+                "Content-Length": stat.size
+              }
+            });

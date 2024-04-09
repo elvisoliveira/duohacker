@@ -1,6 +1,6 @@
 window.actions.tapCompleteTable = (challenge) => {
     const { choices, displayTokens } = challenge;
-    const tokens = document.querySelectorAll(window.keys.WORD_BANK.concat(' ', CHALLENGE_TAP_TOKEN));
+    const tokens = document.querySelectorAll(window.keys.WORD_BANK.concat(' ', window.keys.CHALLENGE_TAP_TOKEN));
     displayTokens.forEach((line) => {
         line.forEach((column) => {
             if (column[0].isBlank == true) {

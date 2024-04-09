@@ -14,7 +14,7 @@ window.actions.name = (challenge) => {
             });
         });
     } else {
-        correctSolutions.forEach((solution, i) => {
+        correctSolutions.forEach((solution) => {
             dynamicInput(tokens[0], solution);
         });
     }
