@@ -1,6 +1,6 @@
 import { keys } from './keys.js';
 
-const TIME_OUT = 3000;
+const TIME_OUT = 1500;
 
 window.dynamicInput = (element, text) => {
     let input = element;
