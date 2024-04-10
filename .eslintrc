@@ -19,7 +19,6 @@
         "clickEvent": true,
         "dynamicInput": true,
         "terminal": true,
-        "getReactFiber": true,
-        "GM_getResourceText": true
+        "getReactFiber": true
     }
 }

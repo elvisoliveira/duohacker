@@ -7,9 +7,9 @@ window.dynamicInput = (element, text) => {
     const input = element;
     const lastValue = input[tag];
     input[tag] = text;
-    let event = new Event('input', { bubbles: true });
+    const event = new Event('input', { bubbles: true });
     event.simulated = true;
-    let tracker = input._valueTracker;
+    const tracker = input._valueTracker;
     if (tracker) {
         tracker.setValue(lastValue);
     }
@@ -103,6 +103,9 @@ function pressEnter() {
     const isPlayerNext = document.querySelector(keys().PLAYER_NEXT);
     if (isPlayerNext !== null)
         isPlayerNext.dispatchEvent(clickEvent);
+
+    if (/learn/gi.test(window.location.href) == true)
+        window.location.replace('__namespace/practice');
 }
 
 // Main Function
@@ -124,7 +127,7 @@ function main() {
 
 // To not mess duolingo's own log
 function setConsole() {
-    var iframe = document.createElement('iframe');
+    const iframe = document.createElement('iframe');
     iframe.id = 'logger';
     iframe.style.display = 'none';
     document.body.appendChild(iframe);
@@ -143,9 +146,8 @@ function solveChallenge() {
         mainInterval = setInterval(main, TIME_OUT);
     }
 
-    if (/learn/gi.test(window.location.href) == true) {
+    if (/learn/gi.test(window.location.href) == true)
         window.location.replace('__namespace/practice');
-    }
 }
 
 (solveChallenge)();
