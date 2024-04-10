@@ -3,9 +3,10 @@ import { keys } from './keys.js';
 const TIME_OUT = 1500;
 
 window.dynamicInput = (element, text) => {
-    let input = element;
-    let lastValue = input.value;
-    input.value = text;
+    const tag = element.tagName === 'SPAN' ? 'textContent' : 'value';
+    const input = element;
+    const lastValue = input[tag];
+    input[tag] = text;
     let event = new Event('input', { bubbles: true });
     event.simulated = true;
     let tracker = input._valueTracker;

@@ -4,6 +4,7 @@ import multi from '@rollup/plugin-multi-entry';
 import eslint from '@rollup/plugin-eslint';
 import replace from '@rollup/plugin-replace';
 
+const development = process.env.ROLLUP_WATCH;
 const metadata = JSON.parse(readFileSync('package.json', 'utf-8'));
 const __namespace = 'https://www.duolingo.com';
 
@@ -13,9 +14,9 @@ export default {
         './src/userscript.js',
     ],
     output: {
-        file: 'bundle.js',
+        file: development && `dev.${metadata.main}` || metadata.main,
         banner: () => stringify({
-            'name': metadata.name,
+            'name': development && `dev.${metadata.name}` || metadata.name,
             'namespace': __namespace,
             'homepageURL': metadata.homepage,
             'supportURL': `${metadata.homepage}/issues`,

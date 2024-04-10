@@ -1,12 +1,13 @@
 {
   "name": "duohacker",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "there's cheats for Duolingo? what",
   "homepage": "https://github.com/elvisoliveira/duohacker",
-  "main": "bundle.js",
+  "main": "bundle.user.js",
   "type": "module",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
   },
   "author": "elvisoliveira",
   "license": "MIT",
