@@ -1,6 +1,6 @@
 {
   "name": "duohacker",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "there's cheats for Duolingo? what",
   "homepage": "https://github.com/elvisoliveira/duohacker",
   "main": "bundle.user.js",
