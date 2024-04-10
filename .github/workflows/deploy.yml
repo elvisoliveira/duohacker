@@ -32,7 +32,7 @@ jobs:
               tag_name: process.env.RELEASE_TAG,
             });
             const path = require('path');
-            const file = path.basename(`./bundle.js`);
+            const file = path.basename(`./bundle.user.js`);
             const fs = require('fs').promises;
             const stat = await fs.stat(file);
             await github.rest.repos.uploadReleaseAsset({
