@@ -7,7 +7,8 @@
   "type": "module",
   "scripts": {
     "build": "rollup -c",
-    "watch": "rollup -c -w"
+    "watch": "rollup -c -w",
+    "test": "node --test"
   },
   "author": "elvisoliveira",
   "license": "MIT",
@@ -15,6 +16,7 @@
     "@rollup/plugin-eslint": "^9.0.5",
     "@rollup/plugin-multi-entry": "^6.0.1",
     "@rollup/plugin-replace": "^5.0.5",
+    "jsdom": "^26.1.0",
     "rollup": "^4.14.1",
     "userscript-meta": "^1.0.1"
   }

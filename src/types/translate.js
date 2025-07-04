@@ -2,14 +2,14 @@ window.actions.translate = (challenge) => {
     const { correctTokens, correctSolutions } = challenge;
     if (correctTokens) {
         const tokens = document.querySelectorAll(window.keys.CHALLENGE_TAP_TOKEN_TEXT);
-        let ignoreTokeIndexes = [];
+        let ignoreTokenIndexes = [];
         for (let correctTokenIndex in correctTokens) {
             for (let tokenIndex in tokens) {
                 const token = tokens[tokenIndex];
-                if (ignoreTokeIndexes.includes(tokenIndex)) continue;
+                if (ignoreTokenIndexes.includes(tokenIndex)) continue;
                 if (token.innerText === correctTokens[correctTokenIndex]) {
                     token.dispatchEvent(clickEvent);
-                    ignoreTokeIndexes.push(tokenIndex);
+                    ignoreTokenIndexes.push(tokenIndex);
                     break;
                 }
             }

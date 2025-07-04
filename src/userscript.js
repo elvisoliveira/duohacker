@@ -83,6 +83,7 @@ function getChallenge() {
 function classify() {
     const challenge = getChallenge();
     if (!challenge) return;
+    terminal.log('Solving challenge type:', challenge.type);
     window.actions[challenge.type](challenge)
 }
 
