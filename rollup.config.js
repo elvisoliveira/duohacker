@@ -1,8 +1,11 @@
 import { stringify } from 'userscript-meta';
 import { readFileSync } from 'fs';
-import multi from '@rollup/plugin-multi-entry';
+import prettier from 'rollup-plugin-prettier';
+
 import eslint from '@rollup/plugin-eslint';
+import multi from '@rollup/plugin-multi-entry';
 import replace from '@rollup/plugin-replace';
+import terser from '@rollup/plugin-terser';
 
 const development = process.env.ROLLUP_WATCH;
 const metadata = JSON.parse(readFileSync('package.json', 'utf-8'));
@@ -39,6 +42,17 @@ export default {
         }),
         multi({
             exports: false
+        }),
+        terser({
+            format: {
+                comments: false
+            },
+            compress: false
+        }),
+        prettier({
+            tabWidth: 4,
+            singleQuote: true,
+            parser: 'babel'
         }),
         eslint()
     ]

@@ -1,5 +1,5 @@
 window.actions.selectTranscription = (challenge) => {
-    const { choices, correctIndex } = challenge;
-    document.querySelectorAll(window.keys.CHALLENGE_JUDGE_TEXT)[correctIndex].dispatchEvent(clickEvent);
-    return { choices, correctIndex };
+    const { choices, correctIndex: i } = challenge;
+    document.querySelectorAll(window.keys.CHALLENGE_JUDGE_TEXT)[i].dispatchEvent(clickEvent);
+    return { choices, i };
 };
