@@ -5,9 +5,10 @@
   "homepage": "https://github.com/elvisoliveira/duohacker",
   "main": "bundle.user.js",
   "type": "module",
-  "scripts": {
+    "scripts": {
     "build": "rollup -c",
-    "watch": "rollup -c -w"
+    "watch": "rollup -c -w",
+    "test": "node --test"
   },
   "author": "elvisoliveira",
   "license": "MIT",
