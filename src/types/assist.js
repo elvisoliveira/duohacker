@@ -1,3 +1,4 @@
+// Alias assist to definition so both challenge types are handled
 window.actions.assist =
 window.actions.definition = (challenge) => {
     const { choices, correctIndex } = challenge;

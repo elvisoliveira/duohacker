@@ -1,6 +1,6 @@
 # duohacker
 
-there's cheats for Duolingo? what
+There's cheats for Duolingo? What?
 
 ### What's this?
 
@@ -11,7 +11,15 @@ An Auto-Answer script for Duolingo that allows you to grind XP and Gems.
 1. Install the userscript from [Greasyfork](https://greasyfork.org/en/scripts/491399-duohacker) using [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/get-it/).
 2. Enable it in your Userscript Manager.
 3. Go onto a Duolingo challenge page (www.duolingo.com/practice).
-4. Refresh and wallah!
+4. Refresh and voilà!
+
+### Development
+
+Run the automated tests with:
+
+```bash
+npm test
+```
 
 ### Known Bugs
 

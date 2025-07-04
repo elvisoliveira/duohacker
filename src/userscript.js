@@ -83,6 +83,7 @@ function getChallenge() {
 function classify() {
     const challenge = getChallenge();
     if (!challenge) return;
+    terminal.log('Solving challenge type:', challenge.type);
     window.actions[challenge.type](challenge)
 }
 
@@ -121,11 +122,11 @@ function main() {
         }
         setTimeout(pressEnter, 150); // pressEnter();
     } catch (e) {
-        // terminal.log(e);
+        terminal.log('Error in main loop:', e);
     }
 }
 
-// To not mess duolingo's own log
+// Create an isolated console so Duolingo's logs stay clean
 function setConsole() {
     const iframe = document.createElement('iframe');
     iframe.id = 'logger';
